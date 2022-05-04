@@ -19,7 +19,7 @@ public class CaptureAllHandler implements HttpHandler {
         if (ex.getQueryString() != null && ex.getQueryString().length()>0){
             query  =  "?"+ex.getQueryString();
         }
-        System.out.println("===============[ " + ex.getRequestURL()+ query + "]==================");
+        System.out.println("===============[ "+ex.getRequestMethod()+" -> " + ex.getRequestURL()+ query + "]==================");
         
         
         System.out.println("query_string   "+ex.getQueryString());
