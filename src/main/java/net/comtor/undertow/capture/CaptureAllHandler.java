@@ -14,7 +14,24 @@ public class CaptureAllHandler implements HttpHandler {
 
     @Override
     public void handleRequest(HttpServerExchange ex) throws Exception {
-        System.out.println("===============[ " + ex.getHostAndPort() + "" + ex.getRequestURI() + " " + ex.getQueryString() + "]==================");
+        
+        String query = "";
+        if (ex.getQueryString() != null && ex.getQueryString().length()>0){
+            query  =  "?"+ex.getQueryString();
+        }
+        System.out.println("===============[ " + ex.getRequestURL()+ query + "]==================");
+        
+        
+        System.out.println("query_string   "+ex.getQueryString());
+        System.out.println("request_path   "+ex.getRequestPath());
+        System.out.println("request_uri    "+ex.getRequestURI());
+        System.out.println("url            "+ex.getRequestURL());
+        System.out.println("Scheme         "+ex.getRequestScheme());
+        
+        
+        
+        
+        System.out.println("---- Headers     -------");
         HeaderMap headers = ex.getRequestHeaders();
         headers.forEach(hv -> System.out.println("" + hv.getHeaderName() + ": " + hv.element()));
         System.out.println("---- Headers end -------");
@@ -25,6 +42,7 @@ public class CaptureAllHandler implements HttpHandler {
         ex.getResponseHeaders().add(new HttpString("Content-type"), "text/plain");
 
         ex.getResponseSender().send("Hello");
+        System.out.println("----------------------------------------");
 
     }
 
